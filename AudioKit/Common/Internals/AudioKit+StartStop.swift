@@ -32,7 +32,7 @@ extension AudioKit {
         try AKTry {
             engine.prepare()
         }
-
+        
         #if os(iOS)
         try updateSessionCategoryAndOptions()
         try AVAudioSession.sharedInstance().setActive(true)
