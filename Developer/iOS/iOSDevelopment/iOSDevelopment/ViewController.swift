@@ -19,16 +19,13 @@ class ViewController: UIViewController {
         }
     }
     
-    var recording = false {
-        didSet {
-            update(recordingState: recording)
-        }
-    }
-    
     let mic = AKMicrophone()
     let micMixer = AKMixer()
+    
     let outputMixer = AKMixer()
     lazy var recorder: AKNodeRecorder? = try? AKNodeRecorder(node: micMixer)
+    
+    // Create an "output" for this with no volume
     let recordingOutputMixer: AKMixer = {
         let mixer = AKMixer()
         mixer.volume = 0
@@ -45,8 +42,8 @@ class ViewController: UIViewController {
         
         // Setup the microphone
         mic.connect(to: micMixer)
-            .connect(to: recordingOutputMixer)
-            .connect(to: outputMixer)
+           .connect(to: recordingOutputMixer)
+           .connect(to: outputMixer)
         
         player.connect(to: outputMixer)
         
@@ -58,11 +55,59 @@ class ViewController: UIViewController {
         } catch {
             print("AudioKit did not start! \(error)")
         }
-        
+    }
+    
+    @IBAction func toggleMic(_ sender: Any) {
+
+        if mic.isStarted {
+            AKLog("Toggling mic off")
+            micButton.setTitle("Mic Off", for: .normal)
+//            micBooster.gain = 0
+//            mic.stop()
+        } else {
+            AKLog("Toggling mic on")
+            micButton.setTitle("Mic On", for: .normal)
+//            micBooster.gain = 1
+//            mic.start()
+        }
     }
     
     @IBAction func toggleRecording(_ sender: UIButton) {
-        recording = !recording
+        if recorder!.isRecording {
+            
+            recordButton.setTitle("Record", for: .normal)
+            
+            recorder?.stop()
+            
+            if let recordedFile = recorder?.audioFile {
+                
+                audioFile = recordedFile
+                
+                playbackButton.isHidden = false
+                
+                recordedFile.exportAsynchronously(name: "test.caf",
+                                                  baseDir: .documents,
+                                                  exportFormat: .caf) { (audioFile, error) in
+                    
+                    if let error = error {
+                        print("Failed to export! \(error)")
+                    } else {
+                        print("Successfully exported the audio file")
+                        try? self.recorder?.reset()
+                    }
+                }
+            }
+
+        } else {
+            playbackButton.isHidden = true
+            recordButton.setTitle("Recording", for: .normal)
+            
+            do {
+                try recorder?.record()
+            } catch {
+                print(error)
+            }
+        }
     }
 
     @IBAction func togglePlaying(_ sender: UIButton) {
@@ -83,113 +128,5 @@ class ViewController: UIViewController {
     
     func update(recordingState: Bool) {
         
-        if recordingState {
-            
-            playbackButton.isHidden = true
-            recordButton.setTitle("Recording", for: .normal)
-            
-            do {
-                try recorder?.record()
-            } catch {
-                print(error)
-            }
-            
-        } else {
-            recordButton.setTitle("Record", for: .normal)
-            
-            recorder?.stop()
-            
-            if let recordedFile = recorder?.audioFile {
-                
-                audioFile = recordedFile
-                
-                playbackButton.isHidden = false
-                
-                recordedFile.exportAsynchronously(name: "test.caf", baseDir: .documents, exportFormat: .caf) { (audioFile, error) in
-                    
-                    if let error = error {
-                        print("Failed to export! \(error)")
-                    } else {
-                        print("Successfully exported the audio file")
-                        try? self.recorder?.reset()
-                    }
-                }
-            }
-        }
     }
 }
-
-
-//import AudioKit
-//import AudioKitUI
-//import UIKit
-//
-//class ViewController: UIViewController {
-//
-//    @IBOutlet weak var button1: UIButton!
-//    @IBOutlet weak var sliderLabel1: UILabel!
-//    @IBOutlet weak var slider1: UISlider!
-//    @IBOutlet weak var sliderLabel2: UILabel!
-//    @IBOutlet weak var slider2: UISlider!
-//    @IBOutlet weak var outputTextView: UITextView!
-//
-//    // Define components
-//    var oscillator = AKOscillator()
-//    var booster = AKBooster()
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        sliderLabel1.text = "Gain"
-//        sliderLabel2.text = "Ramp Duration"
-//        button1.titleLabel?.text = "Start"
-//    }
-//
-//    @IBAction func start(_ sender: UIButton) {
-//
-//        oscillator >>> booster
-//        booster.gain = 0
-//
-//        AudioKit.output = booster
-//        do {
-//            try AudioKit.start()
-//        } catch {
-//            AKLog("AudioKit did not start!")
-//        }
-//        sender.isEnabled = false
-//
-//    }
-//
-//    @IBAction func button1(_ sender: UIButton) {
-//        if oscillator.isPlaying {
-//            oscillator.stop()
-//            button1.titleLabel?.text = "Start"
-//            updateText("Stopped")
-//        } else {
-//            oscillator.start()
-//            button1.titleLabel?.text = "Stop"
-//            updateText("Playing \(Int(oscillator.frequency))Hz")
-//        }
-//    }
-//    @IBAction func slid1(_ sender: UISlider) {
-//        booster.gain = Double(slider1.value)
-//        updateText("booster gain = \(booster.gain)")
-//    }
-//
-//    @IBAction func slid2(_ sender: UISlider) {
-//        booster.rampDuration = Double(slider2.value)
-//        updateText("booster ramp duration = \(booster.rampDuration)")
-//    }
-//
-//    func updateText(_ input: String) {
-//        DispatchQueue.main.async(execute: {
-//            self.outputTextView.text = "\(input)\n\(self.outputTextView.text!)"
-//        })
-//    }
-//
-//    @IBAction func clearText(_ sender: AnyObject) {
-//        DispatchQueue.main.async(execute: {
-//            self.outputTextView.text = ""
-//        })
-//    }
-//}
