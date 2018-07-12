@@ -18,54 +18,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMS-HA-Ihy">
-                                <rect key="frame" x="54" y="97" width="267" height="84"/>
-                                <color key="backgroundColor" red="0.90900259067357514" green="0.11552318500059437" blue="0.89242776989105688" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="DEA-Vc-gWl"/>
-                                    <constraint firstAttribute="width" constant="267" id="JDz-ab-su9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Mic Off"/>
-                                <connections>
-                                    <action selector="toggleMic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cW3-Yj-9ht"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSs-Or-29V">
-                                <rect key="frame" x="54" y="223" width="267" height="84"/>
+                                <rect key="frame" x="20" y="114" width="335" height="100"/>
                                 <color key="backgroundColor" red="0.9090025907" green="0.115523185" blue="0.89242776989999995" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="267" id="IY2-k5-XZk"/>
-                                    <constraint firstAttribute="height" constant="84" id="Zub-PF-5Fq"/>
+                                    <constraint firstAttribute="height" constant="100" id="Zoh-5H-U2x"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Record"/>
+                                <state key="normal" title="Start Recording"/>
                                 <connections>
                                     <action selector="toggleRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kDH-er-sPr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bB-o2-Awy">
-                                <rect key="frame" x="54" y="461" width="267" height="84"/>
+                                <rect key="frame" x="20" y="514" width="335" height="100"/>
                                 <color key="backgroundColor" red="0.9090025907" green="0.115523185" blue="0.89242776989999995" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="0oO-uy-Eyx"/>
-                                    <constraint firstAttribute="width" constant="267" id="8YE-N2-1Wg"/>
+                                    <constraint firstAttribute="height" constant="100" id="ViC-oE-Arh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Play"/>
+                                <state key="normal" title="Play Recording"/>
                                 <connections>
                                     <action selector="togglePlaying:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EWQ-fe-cIf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMS-HA-Ihy">
+                                <rect key="frame" x="20" y="259" width="335" height="100"/>
+                                <color key="backgroundColor" red="0.90900259067357514" green="0.11552318500059437" blue="0.89242776989105688" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="D79-3S-smZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Turn Mic Off"/>
+                                <connections>
+                                    <action selector="toggleMic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cW3-Yj-9ht"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="KSs-Or-29V" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CRb-se-0wi"/>
-                            <constraint firstItem="KSs-Or-29V" firstAttribute="top" secondItem="AMS-HA-Ihy" secondAttribute="bottom" constant="42" id="FCV-eL-oFr"/>
-                            <constraint firstItem="AMS-HA-Ihy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="53" id="LN0-P7-MEg"/>
-                            <constraint firstItem="3bB-o2-Awy" firstAttribute="top" secondItem="KSs-Or-29V" secondAttribute="bottom" constant="154" id="Zfy-d4-RJD"/>
-                            <constraint firstItem="3bB-o2-Awy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jW4-70-4td"/>
-                            <constraint firstItem="AMS-HA-Ihy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="u9F-Ut-ccq"/>
+                            <constraint firstItem="AMS-HA-Ihy" firstAttribute="top" secondItem="KSs-Or-29V" secondAttribute="bottom" constant="45" id="3sm-ML-h1K"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3bB-o2-Awy" secondAttribute="trailing" constant="20" id="BPd-7l-IOZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AMS-HA-Ihy" secondAttribute="trailing" constant="20" id="FuW-WS-PWX"/>
+                            <constraint firstItem="3bB-o2-Awy" firstAttribute="top" secondItem="AMS-HA-Ihy" secondAttribute="bottom" constant="155" id="I6G-2B-A34"/>
+                            <constraint firstItem="KSs-Or-29V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="NTo-18-ZBJ"/>
+                            <constraint firstItem="KSs-Or-29V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="PtE-3d-bO8"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KSs-Or-29V" secondAttribute="trailing" constant="20" id="dPg-ja-gHF"/>
+                            <constraint firstItem="3bB-o2-Awy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="tlv-le-NRM"/>
+                            <constraint firstItem="AMS-HA-Ihy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xON-Li-Eqm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

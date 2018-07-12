@@ -11,8 +11,12 @@ import AudioKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var micButton: UIButton! {
+        didSet {
+            micButton.isHidden = true
+        }
+    }
     @IBOutlet weak var playbackButton: UIButton! {
         didSet {
             playbackButton.isHidden = true
@@ -61,28 +65,38 @@ class ViewController: UIViewController {
 
         if mic.isStarted {
             AKLog("Toggling mic off")
-            micButton.setTitle("Mic Off", for: .normal)
-//            micBooster.gain = 0
-//            mic.stop()
+            stopMic()
         } else {
             AKLog("Toggling mic on")
-            micButton.setTitle("Mic On", for: .normal)
-//            micBooster.gain = 1
-//            mic.start()
+            startMic()
         }
+    }
+    
+    private func stopMic() {
+        micButton.setTitle("Turn Mic On", for: .normal)
+        // micBooster.gain = 0
+        mic.stop()
+    }
+    
+    private func startMic() {
+        // micBooster.gain = 1
+        micButton.setTitle("Turn Mic Off", for: .normal)
+        mic.start()
     }
     
     @IBAction func toggleRecording(_ sender: UIButton) {
         if recorder!.isRecording {
             
-            recordButton.setTitle("Record", for: .normal)
+            recordButton.setTitle("Start Recording", for: .normal)
             
             recorder?.stop()
+            stopMic()
             
             if let recordedFile = recorder?.audioFile {
                 
                 audioFile = recordedFile
                 
+                micButton.isHidden = true
                 playbackButton.isHidden = false
                 
                 recordedFile.exportAsynchronously(name: "test.caf",
@@ -99,6 +113,7 @@ class ViewController: UIViewController {
             }
 
         } else {
+            micButton.isHidden = false
             playbackButton.isHidden = true
             recordButton.setTitle("Recording", for: .normal)
             
